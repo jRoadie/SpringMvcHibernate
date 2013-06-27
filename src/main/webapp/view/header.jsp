@@ -37,6 +37,12 @@ body{
 	padding: 10px 20px;
 	border: 1px solid #aaa;
 }
+#content table#program{
+	border: 0px solid #fff;
+}
+#content table#program td{
+	border: 0px solid #fff;
+}
 </style>
 </head>
 <body>

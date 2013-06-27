@@ -8,8 +8,8 @@ import org.springframework.web.servlet.ModelAndView;
 public class NavigationController {
 	
 	@RequestMapping("/")
-	public ModelAndView homePage(){
-		return new ModelAndView("index");
+	public String homePage(){
+		return "index";
 	}
 	
 }

@@ -6,11 +6,11 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.jroadie.tvprogram.model.Program;
 import com.jroadie.tvprogram.service.ProgramService;
@@ -26,55 +26,49 @@ public class ProgramController {
 	HttpServletRequest request;
 	
 	@RequestMapping("/add")
-	public ModelAndView addProgramPage(){
-		ModelAndView mnv = new ModelAndView("add-program");
-		mnv.addObject("program", new Program());
-		mnv.addObject("pageTitle", "Add New Program");
-		return mnv;
+	public String addProgramPage(Model m){
+		m.addAttribute("program", new Program());
+		m.addAttribute("pageTitle", "Add New Program");
+		return "add-program";
 	}
 	
 	@RequestMapping(value="/edit", params={"id"}, method=RequestMethod.GET)
-	public ModelAndView editProgramPage(@RequestParam("id") int id){
-		ModelAndView mnv = new ModelAndView("edit-program");
+	public String editProgramPage(@RequestParam("id") int id, Model m){
 		Program program = service.getProgram(id);
-		mnv.addObject("program", program);
-		mnv.addObject("pageTitle", "Edit Program");
-		return mnv;
+		m.addAttribute("program", program);
+		m.addAttribute("pageTitle", "Edit Program");
+		return "edit-program";
 	}
 	
 	@RequestMapping(value="/edit", method=RequestMethod.POST)
-	public ModelAndView saveProgram(@ModelAttribute Program program){
-		ModelAndView mnv = new ModelAndView("edit-program");
-		
+	public String saveProgram(@ModelAttribute Program program, Model m){
 		if(program.getId() == null) {
 			service.addProgram(program);
-			mnv.addObject("notice", "<p class='success'>Program successfully saved.</p>");
+			m.addAttribute("notice", "<p class='success'>Program successfully saved.</p>");
 		} else {
 			service.updateProgram(program);
-			mnv.addObject("notice", "<p class='success'>Program successfully updated.</p>");
+			m.addAttribute("notice", "<p class='success'>Program successfully updated.</p>");
 		}
 
-		mnv.addObject("pageTitle", "Edit Program");
+		m.addAttribute("pageTitle", "Edit Program");
 		
-		return mnv;
+		return "edit-program";
 	}
 	
 	@RequestMapping(value="/delete", params={"id"}, method=RequestMethod.GET)
-	public ModelAndView deleteProgram(@RequestParam int id) {
-		ModelAndView mnv = new ModelAndView("program-list");
+	public String deleteProgram(@RequestParam int id, Model m) {
 		service.deleteProgram(id);
 		List<Program> programs = service.getProgramList(1, 10);
-		mnv.addObject("programs", programs);
-		mnv.addObject("notice", "Program successfully deleted");
-		return mnv;
+		m.addAttribute("programs", programs);
+		m.addAttribute("notice", "Program successfully deleted");
+		return "program-list";
 	}
 	
 	@RequestMapping("/list")
-	public ModelAndView programListPage() {
-		ModelAndView mnv = new ModelAndView("program-list");
+	public String programListPage(Model m) {
 		List<Program> programs = service.getProgramList(1, 10);
-		mnv.addObject("programs", programs);
-		return mnv;
+		m.addAttribute("programs", programs);
+		return "program-list";
 	}
 	
 }

@@ -22,7 +22,7 @@ import org.springframework.web.servlet.view.UrlBasedViewResolver;
 @ComponentScan("com.jroadie.tvprogram")
 @EnableWebMvc
 @EnableTransactionManagement
-@PropertySource("classpath:application.properties")
+@PropertySource("classpath:application.conf")
 public class WebAppConfig {
 
 	private static final String DB_DRIVER = "db.driver";
@@ -75,7 +75,7 @@ public class WebAppConfig {
 	@Bean
 	public UrlBasedViewResolver setupViewResolver() {
 		UrlBasedViewResolver resolver = new UrlBasedViewResolver();
-		resolver.setPrefix("/WEB-INF/view/");
+		resolver.setPrefix("/view/");
 		resolver.setSuffix(".jsp");
 		resolver.setViewClass(JstlView.class);
 		return resolver;
