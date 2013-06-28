@@ -44,7 +44,7 @@ public class ProgramDAOImpl implements ProgramDAO {
 	@Override
 	public List<Program> getProgramList(int offset, int limit) {
 		Query hql = sessionFactory.getCurrentSession().createQuery("from Program");
-		hql.setFirstResult(limit * (offset - 1) + 1);
+		hql.setFirstResult(limit * (offset - 1));
 		hql.setMaxResults(limit);
 		List<Program> programList = hql.list();
 		return programList;

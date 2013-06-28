@@ -16,6 +16,14 @@
 			<td><f:textarea path="description"/></td>
 		</tr>
 		<tr>
+			<td><f:label path="startDateTime">Date & Time</f:label></td>
+			<td><f:input path="startDateTime"/>(dd/mm/yyyy hh:mm)</td>
+		</tr>
+		<tr>
+			<td><f:label path="duration">Duration</f:label></td>
+			<td><f:input path="duration"/></td>
+		</tr>
+		<tr>
 			<td><f:label path="activeStatus">Status</f:label></td>
 			<td>
 				<label><f:radiobutton path="activeStatus" value="1" checked="checked"/>Active</label>
