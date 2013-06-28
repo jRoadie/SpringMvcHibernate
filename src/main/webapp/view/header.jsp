@@ -27,6 +27,9 @@ body{
 	color: black;
 	text-decoration: none;
 }
+.success{
+	color: green;
+}
 #content{
 	text-align: left;
 }
@@ -34,7 +37,7 @@ body{
 	border: 1px solid #aaa;
 }
 #content td, #content th{
-	padding: 10px 20px;
+	padding: 5px;
 	border: 1px solid #aaa;
 }
 #content table#program{
@@ -54,4 +57,6 @@ body{
 </div>
 <div id="content">
 <h3>${ pageTitle }</h3>
-<c:if test="${ !empty notice }">${ notice }</c:if>
+<c:if test="${ !empty notice }">
+	<p id="notice" class="success">${ notice }</p>
+</c:if>

@@ -8,6 +8,8 @@
 		<th>Code</th>
 		<th>Title</th>
 		<th>Description</th>
+		<th>Start Time</th>
+		<th>Duration</th>
 		<th>Status</th>
 		<th>Action</th>
 	</tr>
@@ -20,6 +22,8 @@
 			<td>${ program.code }</td>
 			<td>${ program.title }</td>
 			<td>${ program.description }</td>
+			<td>${ program.startDateTime }</td>
+			<td>${ program.duration }</td>
 			<td>${ program.activeStatus }</td>
 			<td>
 				<a href="${ pageContext.request.contextPath }/program/edit?id=${ program.id }">Edit</a> | 
@@ -30,7 +34,7 @@
 	</c:if>
 	<c:if test="${ empty programs }">
 		<tr>
-			<td colspan="6">No programs found.</td>
+			<td colspan="8">No programs found.</td>
 		</tr>
 	</c:if>
 </tbody>

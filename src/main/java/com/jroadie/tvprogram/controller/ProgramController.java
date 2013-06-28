@@ -67,6 +67,7 @@ public class ProgramController {
 	@RequestMapping("/list")
 	public String programListPage(Model m) {
 		List<Program> programs = service.getProgramList(1, 10);
+		System.out.println(programs.size());
 		m.addAttribute("programs", programs);
 		return "program-list";
 	}
