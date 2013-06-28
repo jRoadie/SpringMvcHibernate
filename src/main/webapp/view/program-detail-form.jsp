@@ -4,19 +4,19 @@
 	<f:hidden path="id"/>
 	<table id="program" border="0" cellspacing="0" >
 		<tr>
-			<td>Program Code</td>
+			<td><f:label path="code">Program Code</f:label></td>
 			<td><f:input path="code"/></td>
 		</tr>
 		<tr>
-			<td>Title</td>
+			<td><f:label path="title">Title</f:label></td>
 			<td><f:input path="title"/></td>
 		</tr>
 		<tr>
-			<td>Description</td>
+			<td><f:label path="description">Description</f:label></td>
 			<td><f:textarea path="description"/></td>
 		</tr>
 		<tr>
-			<td>Status</td>
+			<td><f:label path="activeStatus">Status</f:label></td>
 			<td>
 				<label><f:radiobutton path="activeStatus" value="1" checked="checked"/>Active</label>
 				<label><f:radiobutton path="activeStatus" value="0"/>Inactive</label>
