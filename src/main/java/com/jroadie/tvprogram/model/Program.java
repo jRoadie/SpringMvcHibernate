@@ -7,8 +7,12 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 
+import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.format.annotation.NumberFormat;
 
 @Entity
 @Table(name="programs")
@@ -19,22 +23,27 @@ public class Program {
 	@GeneratedValue
 	private Integer id;
 	
+	@NotBlank @Pattern(regexp="^[a-zA-Z\\s]*$")
 	@Column(name="code")
 	private String code;
 	
+	@NotBlank
 	@Column(name="title")
 	private String title;
 	
 	@Column(name="description")
 	private String description;
 	
-	@Column(name="start_date_time")
+	@NotNull
 	@DateTimeFormat(pattern="dd/MM/yyyy HH:mm")
+	@Column(name="start_date_time")
 	private Date startDateTime;
 	
+	@NotNull @NumberFormat
 	@Column(name="duration")
 	private float duration;
 	
+	@NotNull
 	@Column(name="active_status")
 	private Integer activeStatus;
 	

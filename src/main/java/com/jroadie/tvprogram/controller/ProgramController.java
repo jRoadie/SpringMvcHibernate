@@ -3,10 +3,13 @@ package com.jroadie.tvprogram.controller;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
+import javax.xml.ws.BindingType;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -29,7 +32,7 @@ public class ProgramController {
 	public String addProgramPage(Model m){
 		m.addAttribute("program", new Program());
 		m.addAttribute("pageTitle", "Add New Program");
-		return "add-program";
+		return "program-detail-form";
 	}
 	
 	@RequestMapping(value="/edit", params={"id"}, method=RequestMethod.GET)
@@ -37,11 +40,15 @@ public class ProgramController {
 		Program program = service.getProgram(id);
 		m.addAttribute("program", program);
 		m.addAttribute("pageTitle", "Edit Program");
-		return "edit-program";
+		return "program-detail-form";
 	}
 	
 	@RequestMapping(value="/edit", method=RequestMethod.POST)
-	public String saveProgram(@ModelAttribute Program program, Model m){
+	public String saveProgram(@Valid @ModelAttribute Program program, BindingResult result, Model m){
+		if(result.hasErrors()){
+			return "program-detail-form";
+		}
+		
 		if(program.getId() == null) {
 			service.addProgram(program);
 			m.addAttribute("notice", "<p class='success'>Program successfully saved.</p>");
@@ -52,7 +59,7 @@ public class ProgramController {
 
 		m.addAttribute("pageTitle", "Edit Program");
 		
-		return "edit-program";
+		return "program-detail-form";
 	}
 	
 	@RequestMapping(value="/delete", params={"id"}, method=RequestMethod.GET)
