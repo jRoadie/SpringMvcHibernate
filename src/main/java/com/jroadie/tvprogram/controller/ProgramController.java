@@ -2,6 +2,7 @@ package com.jroadie.tvprogram.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import javax.xml.ws.BindingType;
@@ -32,6 +33,7 @@ public class ProgramController {
 	public String addProgramPage(Model m){
 		m.addAttribute("program", new Program());
 		m.addAttribute("pageTitle", "Add New Program");
+		m.addAttribute("formAction", "add");
 		return "program-detail-form";
 	}
 	
@@ -40,25 +42,46 @@ public class ProgramController {
 		Program program = service.getProgram(id);
 		m.addAttribute("program", program);
 		m.addAttribute("pageTitle", "Edit Program");
+		m.addAttribute("formAction", "edit");
+		return "program-detail-form";
+	}
+	
+	@RequestMapping(value="/add", method=RequestMethod.POST)
+	public String addProgram(
+			@Valid @ModelAttribute Program program, 
+			BindingResult result, 
+			Model m){
+		
+		if(result.hasErrors()){
+			m.addAttribute("pageTitle", "Add Program");
+			m.addAttribute("formAction", "add");
+			return "program-detail-form";
+		}
+		
+		service.addProgram(program);
+		m.addAttribute("notice", "<p class='success'>Program successfully added.</p>");
+		m.addAttribute("pageTitle", "Edit Program");
+		m.addAttribute("formAction", "edit");
+			
 		return "program-detail-form";
 	}
 	
 	@RequestMapping(value="/edit", method=RequestMethod.POST)
-	public String saveProgram(@Valid @ModelAttribute Program program, BindingResult result, Model m){
+	public String updateProgram(
+			@Valid @ModelAttribute Program program, 
+			BindingResult result, 
+			Model m){
+		
+		m.addAttribute("pageTitle", "Edit Program");
+		m.addAttribute("formAction", "edit");
+		
 		if(result.hasErrors()){
 			return "program-detail-form";
 		}
 		
-		if(program.getId() == null) {
-			service.addProgram(program);
-			m.addAttribute("notice", "<p class='success'>Program successfully saved.</p>");
-		} else {
-			service.updateProgram(program);
-			m.addAttribute("notice", "<p class='success'>Program successfully updated.</p>");
-		}
-
-		m.addAttribute("pageTitle", "Edit Program");
-		
+		service.updateProgram(program);
+		m.addAttribute("notice", "<p class='success'>Program successfully updated.</p>");
+			
 		return "program-detail-form";
 	}
 	

@@ -7,23 +7,26 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.format.annotation.NumberFormat;
 
 @Entity
 @Table(name="programs")
 public class Program {
 	
 	@Id
-	@Column(name="rid")
 	@GeneratedValue
+	@Column(name="rid")
 	private Integer id;
 	
-	@NotBlank @Pattern(regexp="^[a-zA-Z\\s]*$")
+	@NotNull @Size(max=20, min=1) 
+	@Pattern(regexp="^[a-zA-Z0-9]*$")
 	@Column(name="code")
 	private String code;
 	
@@ -39,9 +42,9 @@ public class Program {
 	@Column(name="start_date_time")
 	private Date startDateTime;
 	
-	@NotNull @NumberFormat
+	@NotNull @Min((long) Float.MIN_VALUE) @Max((long) Float.MAX_VALUE)
 	@Column(name="duration")
-	private float duration;
+	private Float duration;
 	
 	@NotNull
 	@Column(name="active_status")
@@ -77,10 +80,10 @@ public class Program {
 	public void setStartDateTime(Date startDateTime) {
 		this.startDateTime = startDateTime;
 	}
-	public float getDuration() {
+	public Float getDuration() {
 		return duration;
 	}
-	public void setDuration(float duration) {
+	public void setDuration(Float duration) {
 		this.duration = duration;
 	}
 	public Integer getActiveStatus() {

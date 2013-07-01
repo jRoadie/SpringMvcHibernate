@@ -46,6 +46,9 @@ body{
 #content table#program td{
 	border: 0px solid #fff;
 }
+form .error{
+	color: red;
+}
 </style>
 </head>
 <body>
