@@ -1,12 +1,6 @@
 package com.jroadie.tvprogram.controller;
 
-import java.util.List;
-
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
-import javax.xml.ws.BindingType;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,30 +18,37 @@ import com.jroadie.tvprogram.service.ProgramService;
 public class ProgramController {
 	
 	@Autowired
-	private ProgramService service;
+	private ProgramService programService;
 	
-	@Autowired
-	HttpServletRequest request;
+	private static final String DETAIL_PAGE = "program-detail-form";
+	private static final String LIST_PAGE = "program-list";
 	
 	@RequestMapping("/add")
-	public String addProgramPage(Model m){
+	public String addPage(Model m){
 		m.addAttribute("program", new Program());
 		m.addAttribute("pageTitle", "Add New Program");
 		m.addAttribute("formAction", "add");
-		return "program-detail-form";
+		return DETAIL_PAGE;
 	}
 	
 	@RequestMapping(value="/edit", params={"id"}, method=RequestMethod.GET)
-	public String editProgramPage(@RequestParam("id") int id, Model m){
-		Program program = service.getProgram(id);
+	public String editPage(@RequestParam("id") int id, Model m){
+		Program program = programService.get(id);
 		m.addAttribute("program", program);
 		m.addAttribute("pageTitle", "Edit Program");
 		m.addAttribute("formAction", "edit");
-		return "program-detail-form";
+		return DETAIL_PAGE;
+	}
+	
+	@RequestMapping("/list")
+	public String listPage(Model m) {
+		m.addAttribute("programs", programService.getList(1, 10));
+		m.addAttribute("pageTitle", "All Programs");
+		return LIST_PAGE;
 	}
 	
 	@RequestMapping(value="/add", method=RequestMethod.POST)
-	public String addProgram(
+	public String add(
 			@Valid @ModelAttribute Program program, 
 			BindingResult result, 
 			Model m){
@@ -55,19 +56,19 @@ public class ProgramController {
 		if(result.hasErrors()){
 			m.addAttribute("pageTitle", "Add Program");
 			m.addAttribute("formAction", "add");
-			return "program-detail-form";
+			return DETAIL_PAGE;
 		}
 		
-		service.addProgram(program);
+		programService.add(program);
 		m.addAttribute("notice", "<p class='success'>Program successfully added.</p>");
 		m.addAttribute("pageTitle", "Edit Program");
 		m.addAttribute("formAction", "edit");
 			
-		return "program-detail-form";
+		return DETAIL_PAGE;
 	}
 	
 	@RequestMapping(value="/edit", method=RequestMethod.POST)
-	public String updateProgram(
+	public String update(
 			@Valid @ModelAttribute Program program, 
 			BindingResult result, 
 			Model m){
@@ -76,30 +77,22 @@ public class ProgramController {
 		m.addAttribute("formAction", "edit");
 		
 		if(result.hasErrors()){
-			return "program-detail-form";
+			return DETAIL_PAGE;
 		}
 		
-		service.updateProgram(program);
+		programService.update(program);
 		m.addAttribute("notice", "<p class='success'>Program successfully updated.</p>");
 			
-		return "program-detail-form";
+		return DETAIL_PAGE;
 	}
 	
 	@RequestMapping(value="/delete", params={"id"}, method=RequestMethod.GET)
-	public String deleteProgram(@RequestParam int id, Model m) {
-		service.deleteProgram(id);
-		List<Program> programs = service.getProgramList(1, 10);
-		m.addAttribute("programs", programs);
-		m.addAttribute("notice", "Program successfully deleted");
-		return "program-list";
-	}
-	
-	@RequestMapping("/list")
-	public String programListPage(Model m) {
-		List<Program> programs = service.getProgramList(1, 10);
-		System.out.println(programs.size());
-		m.addAttribute("programs", programs);
-		return "program-list";
+	public String delete(@RequestParam int id, Model m) {
+		programService.delete(id);
+		m.addAttribute("programs", programService.getList(1, 10));
+		m.addAttribute("pageTitle", "All Programs");
+		m.addAttribute("notice", "<p class='warning'>Program successfully deleted</p>");
+		return LIST_PAGE;
 	}
 	
 }

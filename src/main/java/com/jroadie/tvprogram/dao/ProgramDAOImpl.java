@@ -16,33 +16,33 @@ public class ProgramDAOImpl implements ProgramDAO {
 	private SessionFactory sessionFactory;
 
 	@Override
-	public Program addProgram(Program program) {
+	public Program add(Program program) {
 		sessionFactory.getCurrentSession().save(program);
 		sessionFactory.getCurrentSession().flush();
 		return program;
 	}
 
 	@Override
-	public Program updateProgram(Program program) {
+	public Program update(Program program) {
 		sessionFactory.getCurrentSession().update(program);
 		sessionFactory.getCurrentSession().flush();
 		return program;
 	}
 
 	@Override
-	public void deleteProgram(Program program) {
+	public void delete(Program program) {
 		sessionFactory.getCurrentSession().delete(program);
 	}
 	
 	@Override
-	public Program getProgram(int id) {
+	public Program get(int id) {
 		Program program = (Program) sessionFactory.getCurrentSession().get(Program.class, id);
 		return program;
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Program> getProgramList(int offset, int limit) {
+	public List<Program> getList(int offset, int limit) {
 		Query hql = sessionFactory.getCurrentSession().createQuery("from Program");
 		hql.setFirstResult(limit * (offset - 1));
 		hql.setMaxResults(limit);

@@ -17,38 +17,38 @@ public class ProgramServiceImpl implements ProgramService {
 	private ProgramDAO programDAO;
 
 	@Override
-	public Program addProgram(Program program) {
-		return programDAO.addProgram(program);
+	public Program add(Program program) {
+		return programDAO.add(program);
 	}
 
 	@Override
-	public Program updateProgram(Program program) {
-		Program programToUpdate = programDAO.getProgram(program.getId());
+	public Program update(Program program) {
+		Program programToUpdate = programDAO.get(program.getId());
 		programToUpdate.setCode(program.getCode());
 		programToUpdate.setTitle(program.getTitle());
 		programToUpdate.setDescription(program.getDescription());
 		programToUpdate.setStartDateTime(program.getStartDateTime());
 		programToUpdate.setDuration(program.getDuration());
 		programToUpdate.setActiveStatus(program.getActiveStatus());
-		return programDAO.updateProgram(programToUpdate);
+		return programDAO.update(programToUpdate);
 	}
 	
 	@Override
-	public void deleteProgram(int id) {
-		Program programToDelete = this.getProgram(id);
+	public void delete(int id) {
+		Program programToDelete = this.get(id);
 		if(programToDelete != null){
-			programDAO.deleteProgram(programToDelete);
+			programDAO.delete(programToDelete);
 		}
 	}
 	
 	@Override
-	public Program getProgram(int id) {
-		return programDAO.getProgram(id);
+	public Program get(int id) {
+		return programDAO.get(id);
 	}
 	
 	@Override
-	public List<Program> getProgramList(int offset, int limit) {
-		return programDAO.getProgramList(offset, limit);
+	public List<Program> getList(int offset, int limit) {
+		return programDAO.getList(offset, limit);
 	}
 
 }

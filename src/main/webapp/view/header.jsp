@@ -8,13 +8,15 @@
 <style type="text/css">
 body{
 	text-align: center;
+	font-family: Arial;
+	font-size: 14px;
 }
 #wrap{
-	width: 600px;
+	width: 800px;
 	margin: 0 auto;
 }
 #main-nav ul{
-	width: 400px;
+	width: 100%;
 	margin: 0 auto;
 }
 #main-nav ul li{
@@ -27,13 +29,21 @@ body{
 	color: black;
 	text-decoration: none;
 }
-.success{
+#notice .success{
 	color: green;
+	border: 1px solid green;
+	padding: 5px 10px;
+}
+#notice .warning{
+	color: orange;
+	border: 1px solid orange;
+	padding: 5px 10px;
 }
 #content{
 	text-align: left;
 }
 #content table{
+	width: 100%;
 	border: 1px solid #aaa;
 }
 #content td, #content th{
@@ -61,5 +71,5 @@ form .error{
 <div id="content">
 <h3>${ pageTitle }</h3>
 <c:if test="${ !empty notice }">
-	<p id="notice" class="success">${ notice }</p>
+<div id="notice">${ notice }</div>
 </c:if>

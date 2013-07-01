@@ -6,7 +6,7 @@
 	<f:hidden path="id"/>
 	<table id="program" border="0" cellspacing="0" >
 		<tr>
-			<td><f:label path="code">Program Code</f:label></td>
+			<td width="150px"><f:label path="code">Program Code</f:label></td>
 			<td><f:input path="code"/><f:errors path="code" cssClass="error"/></td>
 		</tr>
 		<tr>
