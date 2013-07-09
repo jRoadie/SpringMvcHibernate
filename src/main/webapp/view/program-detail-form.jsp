@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="f" %>
-<f:form method="post" commandName="program" action="${ pageContext.request.contextPath }/program/edit">
+
+<f:form method="post" commandName="program" action="${ pageContext.request.contextPath }/program/${ formAction }">
 	<f:hidden path="id"/>
 	<table id="program" border="0" cellspacing="0" >
 		<tr>

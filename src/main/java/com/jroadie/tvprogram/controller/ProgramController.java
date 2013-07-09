@@ -26,49 +26,61 @@ public class ProgramController {
 	HttpServletRequest request;
 	
 	@RequestMapping("/add")
-	public String addProgramPage(Model m){
+	public String addPage(Model m){
+		System.out.println("add-page");
 		m.addAttribute("program", new Program());
 		m.addAttribute("pageTitle", "Add New Program");
+		m.addAttribute("formAction", "add");
 		return "add-program";
 	}
 	
 	@RequestMapping(value="/edit", params={"id"}, method=RequestMethod.GET)
-	public String editProgramPage(@RequestParam("id") int id, Model m){
+	public String editPage(@RequestParam("id") int id, Model m){
 		Program program = service.getProgram(id);
 		m.addAttribute("program", program);
 		m.addAttribute("pageTitle", "Edit Program");
+		m.addAttribute("formAction", "edit");
+		return "edit-program";
+	}
+	
+	@RequestMapping("/list")
+	public String listPage(Model m) {
+		List<Program> programs = service.getProgramList(1, 10);
+		System.out.println(programs.size());
+		m.addAttribute("programs", programs);
+		return "program-list";
+	}
+	
+	@RequestMapping(value="/add", method=RequestMethod.POST)
+	public String add(@ModelAttribute Program program, Model m){
+		System.out.println("add-action");
+		service.addProgram(program);
+		m.addAttribute("notice", "<p class='success'>Program successfully added.</p>");
+
+		m.addAttribute("pageTitle", "Edit Program");
+		m.addAttribute("formAction", "edit");
+		
 		return "edit-program";
 	}
 	
 	@RequestMapping(value="/edit", method=RequestMethod.POST)
-	public String saveProgram(@ModelAttribute Program program, Model m){
-		if(program.getId() == null) {
-			service.addProgram(program);
-			m.addAttribute("notice", "<p class='success'>Program successfully saved.</p>");
-		} else {
-			service.updateProgram(program);
-			m.addAttribute("notice", "<p class='success'>Program successfully updated.</p>");
-		}
+	public String update(@ModelAttribute Program program, Model m){
+		
+		service.updateProgram(program);
+		m.addAttribute("notice", "<p class='success'>Program successfully updated.</p>");
 
 		m.addAttribute("pageTitle", "Edit Program");
+		m.addAttribute("formAction", "edit");
 		
 		return "edit-program";
 	}
 	
 	@RequestMapping(value="/delete", params={"id"}, method=RequestMethod.GET)
-	public String deleteProgram(@RequestParam int id, Model m) {
+	public String delete(@RequestParam int id, Model m) {
 		service.deleteProgram(id);
 		List<Program> programs = service.getProgramList(1, 10);
 		m.addAttribute("programs", programs);
-		m.addAttribute("notice", "Program successfully deleted");
-		return "program-list";
-	}
-	
-	@RequestMapping("/list")
-	public String programListPage(Model m) {
-		List<Program> programs = service.getProgramList(1, 10);
-		System.out.println(programs.size());
-		m.addAttribute("programs", programs);
+		m.addAttribute("notice", "<p class='success'>Program successfully deleted</p>");
 		return "program-list";
 	}
 	
