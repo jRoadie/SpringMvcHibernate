@@ -50,10 +50,10 @@ body{
 	padding: 5px;
 	border: 1px solid #aaa;
 }
-#content table#program{
+#content form table{
 	border: 0px solid #fff;
 }
-#content table#program td{
+#content form table td{
 	border: 0px solid #fff;
 }
 form .error{

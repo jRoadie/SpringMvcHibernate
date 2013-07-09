@@ -27,8 +27,6 @@ public class ProgramServiceImpl implements ProgramService {
 		programToUpdate.setCode(program.getCode());
 		programToUpdate.setTitle(program.getTitle());
 		programToUpdate.setDescription(program.getDescription());
-		programToUpdate.setStartDateTime(program.getStartDateTime());
-		programToUpdate.setDuration(program.getDuration());
 		programToUpdate.setActiveStatus(program.getActiveStatus());
 		return programDAO.update(programToUpdate);
 	}
