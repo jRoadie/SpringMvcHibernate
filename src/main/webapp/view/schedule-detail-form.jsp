@@ -8,7 +8,9 @@
 		<tr>
 			<td width="150px"><f:label path="program">Program</f:label></td>
 			<td>
-				<f:select path="program" items="${ programs }" itemValue="id" itemLabel="title" />
+				<f:select path="program.id">
+					<f:options items="${ programs }" itemValue="id" itemLabel="title" />
+				</f:select>
 			</td>
 		</tr>
 		<tr>

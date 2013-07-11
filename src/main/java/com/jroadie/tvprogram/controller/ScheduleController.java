@@ -1,5 +1,6 @@
 package com.jroadie.tvprogram.controller;
 
+import java.beans.PropertyEditorSupport;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -7,6 +8,8 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -49,6 +52,7 @@ public class ScheduleController {
 		m.addAttribute("schedule", schedule);
 		m.addAttribute("pageTitle", "Edit Schedule");
 		m.addAttribute("formAction", "edit");
+		m.addAttribute("programs", programService.getList(1, -1));
 		return DETAIL_PAGE;
 	}
 	
@@ -61,16 +65,14 @@ public class ScheduleController {
 	
 	@RequestMapping(value="/add", method=RequestMethod.POST)
 	public String add(
-			@ModelAttribute("program") Integer program,
-			@ModelAttribute("schedule") Schedule schedule,
+			@ModelAttribute Schedule schedule,
 			Model m) {
-		System.out.println("add-action");
+		
 		scheduleService.add(schedule);
 		m.addAttribute("notice", "<p class='success'>Schedule successfully added.</p>");
 		m.addAttribute("pageTitle", "Edit Schedule");
 		m.addAttribute("formAction", "edit");
 		m.addAttribute("programs", programService.getList(1, -1));
-		//m.addAttribute("programMap", this.getAllProgramsMap());
 		return DETAIL_PAGE;
 	}
 	
@@ -83,7 +85,7 @@ public class ScheduleController {
 		m.addAttribute("notice", "<p class='success'>Schedule successfully updated.</p>");
 		m.addAttribute("pageTitle", "Edit Schedule");
 		m.addAttribute("formAction", "edit");
-
+		m.addAttribute("programs", programService.getList(1, -1));
 		return DETAIL_PAGE;
 	}
 	
@@ -99,14 +101,26 @@ public class ScheduleController {
 		return LIST_PAGE;
 	}
 	
-	private Map<Integer, String> getAllProgramsMap(){
-		Map<Integer, String> programMap = new HashMap<Integer, String>();
-		List<Program> programList = programService.getList(1, -1);
-		//System.out.println("programList size: "+programList.size());
-		for(Program p:programList) {
-			programMap.put(p.getId(), p.getTitle());
-		}
-		//System.out.println("programMap size: "+programMap.size());
-		return programMap;
+	@InitBinder("schedule")
+	private void initBinder(WebDataBinder binder) {
+		System.out.println("initbinder starts");
+		
+		// Using different property editor class
+//		binder.registerCustomEditor(
+//				Program.class, 
+//				new ProgramPropertyEditor(programService)
+//			);
+		
+		binder.registerCustomEditor(
+				Program.class, 
+				new PropertyEditorSupport() {
+					@Override
+					public void setAsText(String text) throws IllegalArgumentException {
+						Program program = programService.get(Integer.parseInt(text));
+						this.setValue(program);		
+					}
+				}
+			);
 	}
+	
 }

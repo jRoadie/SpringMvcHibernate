@@ -10,6 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -44,8 +46,8 @@ public class Schedule implements Serializable {
 		this.program = program;
 	}
 	
-	//@Temporal(TemporalType.DATE)
-	@DateTimeFormat(pattern="dd/mm/yyyy")
+	@Temporal(TemporalType.DATE)
+	@DateTimeFormat(pattern="dd/MM/yyyy")
 	@Column(name="date")
 	public Date getDate() {
 		return date;
@@ -54,7 +56,7 @@ public class Schedule implements Serializable {
 		this.date = date;
 	}
 	
-	//@Temporal(TemporalType.TIME)
+	@Temporal(TemporalType.TIME)
 	@DateTimeFormat(pattern="HH:mm")
 	@Column(name="time")
 	public Date getTime() {

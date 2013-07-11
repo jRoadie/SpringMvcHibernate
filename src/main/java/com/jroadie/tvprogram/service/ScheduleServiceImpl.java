@@ -23,26 +23,30 @@ public class ScheduleServiceImpl implements ScheduleService {
 
 	@Override
 	public Schedule update(Schedule schedule) {
-		// TODO Auto-generated method stub
-		return null;
+		Schedule scheduleToUpdate = scheduleDAO.get(schedule.getId());
+		scheduleToUpdate.setProgram(schedule.getProgram());
+		scheduleToUpdate.setDate(schedule.getDate());
+		scheduleToUpdate.setTime(schedule.getTime());
+		scheduleToUpdate.setDuration(schedule.getDuration());
+		return scheduleDAO.update(scheduleToUpdate);
 	}
 
 	@Override
 	public void delete(int id) {
-		// TODO Auto-generated method stub
-		
+		Schedule scheduleToDelete = this.get(id);
+		if(scheduleToDelete != null) {
+			scheduleDAO.delete(scheduleToDelete);
+		}
 	}
 
 	@Override
 	public Schedule get(int id) {
-		// TODO Auto-generated method stub
-		return null;
+		return scheduleDAO.get(id);
 	}
 
 	@Override
 	public List<Schedule> getList(int offset, int limit) {
-		// TODO Auto-generated method stub
-		return null;
+		return scheduleDAO.getList(offset, limit);
 	}
 
 }
