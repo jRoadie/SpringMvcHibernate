@@ -11,22 +11,22 @@
 	</tr>
 </thead>
 <tbody>
-	<c:if test="${ !empty programTypes }">
-		<c:forEach var="programType" items="${ programTypes }">
+	<c:if test="${ !empty categories }">
+		<c:forEach var="category" items="${ categories }">
 		<tr>
-			<td>${ programType.id }</td>
-			<td>${ programType.name }</td>
-			<td>${ programType.description }</td>
+			<td>${ category.id }</td>
+			<td>${ category.name }</td>
+			<td>${ category.description }</td>
 			<td>
-				<a href="${ pageContext.request.contextPath }/program/type/edit?id=${ programType.id }">Edit</a> | 
-				<a href="${ pageContext.request.contextPath }/program/type/delete?id=${ programType.id }">Delete</a>
+				<a href="${ pageContext.request.contextPath }/program/category/edit?id=${ category.id }">Edit</a> | 
+				<a href="${ pageContext.request.contextPath }/program/category/delete?id=${ category.id }">Delete</a>
 			</td>
 		</tr>
 		</c:forEach>
 	</c:if>
-	<c:if test="${ empty programTypes }">
+	<c:if test="${ empty categories }">
 		<tr>
-			<td colspan="8">No program types found.</td>
+			<td colspan="8">No categories found.</td>
 		</tr>
 	</c:if>
 </tbody>

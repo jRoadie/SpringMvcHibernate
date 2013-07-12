@@ -10,6 +10,10 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinColumns;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -26,6 +30,7 @@ public class Program implements Serializable {
 	private Integer activeStatus;
 	
 	private Set<Schedule> scheduleSet;
+	private Set<Category> categorySet;
 	
 	@Id
 	@GeneratedValue
@@ -75,6 +80,19 @@ public class Program implements Serializable {
 	}
 	public void setScheduleSet(Set<Schedule> scheduleSet) {
 		this.scheduleSet = scheduleSet;
+	}
+	
+	@ManyToMany
+	@JoinTable(
+			name="program_has_category",
+			joinColumns = { @JoinColumn(name="program_rid") },
+			inverseJoinColumns = { @JoinColumn(name="category_rid") }
+			)
+	public Set<Category> getCategorySet() {
+		return categorySet;
+	}
+	public void setCategorySet(Set<Category> categorySet) {
+		this.categorySet = categorySet;
 	}
 	
 }

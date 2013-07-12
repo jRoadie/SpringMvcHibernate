@@ -7,7 +7,6 @@
 <title>TV Programs : jRoadie.com</title>
 <style type="text/css">
 body{
-	text-align: center;
 	font-family: Arial;
 	font-size: 14px;
 }
@@ -16,18 +15,21 @@ body{
 	margin: 0 auto;
 }
 #main-nav ul{
-	width: 100%;
 	margin: 0 auto;
+	padding-left: 0px;
 }
 #main-nav ul li{
 	float: left;
 	list-style: none;
-	font-size: 18px;
-	margin-left: 30px;
+	font-size: 14px;
 }
 #main-nav ul li a{
 	color: black;
+	padding: 5px 10px;
 	text-decoration: none;
+}
+#main-nav ul li a:hover{
+	text-decoration: underline;
 }
 #notice .success{
 	color: green;

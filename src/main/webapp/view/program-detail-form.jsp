@@ -26,6 +26,10 @@
 			</td>
 		</tr>
 		<tr>
+			<td><f:label path="categorySet"/></td>
+			<td><f:checkboxes path="categorySet" items="categories" itemValue="categorySet.id" itemLabel="categorySet.name"/></td>
+		</tr>
+		<tr>
 			<td></td>
 			<td><f:button type="submit" name="submit">Submit</f:button><f:button type="reset">Reset</f:button> </td>
 		</tr>

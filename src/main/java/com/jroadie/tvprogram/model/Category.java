@@ -1,28 +1,37 @@
 package com.jroadie.tvprogram.model;
 
+import java.io.Serializable;
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 import org.hibernate.validator.constraints.NotBlank;
 
 @Entity
-@Table(name="program_types")
-public class ProgramType {
+@Table(name="categories")
+public class Category implements Serializable {
 	
+	private static final long serialVersionUID = -1776689533889602737L;
+
 	@Id
 	@GeneratedValue
 	@Column(name="rid")
 	private Integer id;
 	
-	@NotBlank
 	@Column(name="name")
 	private String name;
 	
 	@Column(name="description")
 	private String description;
+	
+	@ManyToMany(fetch = FetchType.LAZY, mappedBy="categorySet")
+	private Set<Program> programSet;
 	
 	public Integer getId() {
 		return id;
@@ -41,6 +50,13 @@ public class ProgramType {
 	}
 	public void setDescription(String description) {
 		this.description = description;
+	}
+	
+	public Set<Program> getProgramSet() {
+		return programSet;
+	}
+	public void setProgramSet(Set<Program> programSet) {
+		this.programSet = programSet;
 	}
 	
 }

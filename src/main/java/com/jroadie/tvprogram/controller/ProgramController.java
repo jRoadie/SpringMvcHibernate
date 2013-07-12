@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.jroadie.tvprogram.model.Program;
+import com.jroadie.tvprogram.service.CategoryService;
 import com.jroadie.tvprogram.service.ProgramService;
 
 @Controller
@@ -18,6 +19,9 @@ public class ProgramController {
 	@Autowired
 	private ProgramService programService;
 	
+	@Autowired
+	private CategoryService categoryService;
+	
 	private static final String DETAIL_PAGE = "program-detail-form";
 	private static final String LIST_PAGE = "program-list";
 	
@@ -26,6 +30,7 @@ public class ProgramController {
 		m.addAttribute("program", new Program());
 		m.addAttribute("pageTitle", "Add New Program");
 		m.addAttribute("formAction", "add");
+		m.addAttribute("categories", categoryService.getList(1, -1));
 		return DETAIL_PAGE;
 	}
 	
