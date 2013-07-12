@@ -7,6 +7,7 @@ import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
@@ -68,7 +69,7 @@ public class Program implements Serializable {
 		this.activeStatus = activeStatus;
 	}
 	
-	@OneToMany(mappedBy="program")
+	@OneToMany(fetch=FetchType.EAGER, mappedBy="program")
 	public Set<Schedule> getScheduleSet() {
 		return scheduleSet;
 	}

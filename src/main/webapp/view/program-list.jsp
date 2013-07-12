@@ -9,6 +9,7 @@
 		<th>Title</th>
 		<th>Description</th>
 		<th>Status</th>
+		<th>Schedules</th>
 		<th>Action</th>
 	</tr>
 </thead>
@@ -21,6 +22,13 @@
 			<td>${ program.title }</td>
 			<td>${ program.description }</td>
 			<td>${ program.activeStatus }</td>
+			<td>
+				<ol>
+				<c:forEach var="schedule" items="${ program.scheduleSet }">
+					<li>${ schedule.date } | ${ schedule.time }</li>
+				</c:forEach>
+				</ol>
+			</td>
 			<td>
 				<a href="${ pageContext.request.contextPath }/program/edit?id=${ program.id }">Edit</a> | 
 				<a href="${ pageContext.request.contextPath }/program/delete?id=${ program.id }">Delete</a>

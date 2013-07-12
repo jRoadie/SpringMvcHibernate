@@ -39,7 +39,6 @@ public class ScheduleController {
 		m.addAttribute("pageTitle", "Add New Schedule");
 		m.addAttribute("formAction", "add");
 		m.addAttribute("programs", programService.getList(1, -1));
-		//m.addAttribute("programMap", this.getAllProgramsMap());
 		return DETAIL_PAGE;
 	}
 	
