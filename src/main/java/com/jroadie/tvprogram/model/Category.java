@@ -19,32 +19,31 @@ public class Category implements Serializable {
 	
 	private static final long serialVersionUID = -1776689533889602737L;
 
+	private Integer id;
+	private String name;
+	private String description;
+	
+	private Set<Program> programSet;
+	
 	@Id
 	@GeneratedValue
 	@Column(name="rid")
-	private Integer id;
-	
-	@Column(name="name")
-	private String name;
-	
-	@Column(name="description")
-	private String description;
-	
-	@ManyToMany(fetch = FetchType.LAZY, mappedBy="categorySet")
-	private Set<Program> programSet;
-	
 	public Integer getId() {
 		return id;
 	}
 	public void setId(Integer id) {
 		this.id = id;
 	}
+	
+	@Column(name="name")
 	public String getName() {
 		return name;
 	}
 	public void setName(String name) {
 		this.name = name;
 	}
+	
+	@Column(name="description")
 	public String getDescription() {
 		return description;
 	}
@@ -52,11 +51,28 @@ public class Category implements Serializable {
 		this.description = description;
 	}
 	
+	@ManyToMany(fetch = FetchType.LAZY, mappedBy="categorySet")
 	public Set<Program> getProgramSet() {
 		return programSet;
 	}
 	public void setProgramSet(Set<Program> programSet) {
 		this.programSet = programSet;
+	}
+	
+	@Override
+	public int hashCode(){
+		return this.getId().hashCode();
+	}
+	
+	@Override
+	public boolean equals(Object target) {
+		if(target == this) {
+			return true;
+		}
+		if(target == null || target.getClass() != this.getClass()) {
+			return false;
+		}
+		return this.getId() == ((Category) target).getId();
 	}
 	
 }

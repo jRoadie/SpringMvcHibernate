@@ -102,8 +102,6 @@ public class ScheduleController {
 	
 	@InitBinder("schedule")
 	private void initBinder(WebDataBinder binder) {
-		System.out.println("initbinder starts");
-		
 		// Using different property editor class
 //		binder.registerCustomEditor(
 //				Program.class, 

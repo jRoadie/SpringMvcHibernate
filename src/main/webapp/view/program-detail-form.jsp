@@ -26,8 +26,8 @@
 			</td>
 		</tr>
 		<tr>
-			<td><f:label path="categorySet"/></td>
-			<td><f:checkboxes path="categorySet" items="categories" itemValue="categorySet.id" itemLabel="categorySet.name"/></td>
+			<td><f:label path="categorySet">Categories</f:label></td>
+			<td><f:checkboxes items="${ categories }" path="categorySet" itemValue="id" itemLabel="name"/></td>
 		</tr>
 		<tr>
 			<td></td>

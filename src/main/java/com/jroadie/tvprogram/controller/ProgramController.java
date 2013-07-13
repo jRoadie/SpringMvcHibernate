@@ -1,13 +1,20 @@
 package com.jroadie.tvprogram.controller;
 
+import java.beans.PropertyEditorSupport;
+import java.util.Set;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.CustomCollectionEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.jroadie.tvprogram.model.Category;
 import com.jroadie.tvprogram.model.Program;
 import com.jroadie.tvprogram.service.CategoryService;
 import com.jroadie.tvprogram.service.ProgramService;
@@ -42,6 +49,7 @@ public class ProgramController {
 		m.addAttribute("program", program);
 		m.addAttribute("pageTitle", "Edit Program");
 		m.addAttribute("formAction", "edit");
+		m.addAttribute("categories", categoryService.getList(1, -1));
 		return DETAIL_PAGE;
 	}
 	
@@ -56,12 +64,11 @@ public class ProgramController {
 	public String add(
 			@ModelAttribute Program program, 
 			Model m){
-		
 		programService.add(program);
 		m.addAttribute("notice", "<p class='success'>Program successfully added.</p>");
 		m.addAttribute("pageTitle", "Edit Program");
 		m.addAttribute("formAction", "edit");
-			
+		m.addAttribute("categories", categoryService.getList(1, -1));
 		return DETAIL_PAGE;
 	}
 	
@@ -74,7 +81,7 @@ public class ProgramController {
 		m.addAttribute("notice", "<p class='success'>Program successfully updated.</p>");
 		m.addAttribute("pageTitle", "Edit Program");
 		m.addAttribute("formAction", "edit");
-		
+		m.addAttribute("categories", categoryService.getList(1, -1));
 		return DETAIL_PAGE;
 	}
 	
@@ -87,6 +94,46 @@ public class ProgramController {
 		m.addAttribute("programs", programService.getList(1, 10));
 		m.addAttribute("pageTitle", "All Programs");
 		return LIST_PAGE;
+	}
+	
+	@InitBinder("program")
+	private void initBinder(WebDataBinder binder) {
+		// Using different property editor class
+//		binder.registerCustomEditor(
+//				Program.class, 
+//				new ProgramPropertyEditor(programService)
+//			);
+		
+		binder.registerCustomEditor(
+				Set.class,
+				"categorySet",
+				new CustomCollectionEditor(Set.class) {
+					@Override
+					public Object convertElement(Object target) throws IllegalArgumentException {
+						//return categoryService.get(Integer.parseInt(target.toString()));
+						int id = Integer.parseInt(target.toString());
+						Category category = new Category();
+						category.setId(id);
+						return category;
+					}
+				}
+			);
+		
+//		binder.registerCustomEditor(
+//				Category.class, 
+//				"categorySet",
+//				new PropertyEditorSupport() {
+//					@Override
+//					public void setAsText(String text) throws IllegalArgumentException {
+//						Category category = categoryService.get(Integer.parseInt(text));
+//						this.setValue(category);		
+//					}
+//					@Override
+//				    public String getAsText() {
+//				        return ((Category) getValue()).getId().toString();
+//				    }
+//				}
+//			);
 	}
 	
 }

@@ -28,6 +28,8 @@ public class ProgramServiceImpl implements ProgramService {
 		programToUpdate.setTitle(program.getTitle());
 		programToUpdate.setDescription(program.getDescription());
 		programToUpdate.setActiveStatus(program.getActiveStatus());
+		programToUpdate.setScheduleSet(program.getScheduleSet());
+		programToUpdate.setCategorySet(program.getCategorySet());
 		return programDAO.update(programToUpdate);
 	}
 	

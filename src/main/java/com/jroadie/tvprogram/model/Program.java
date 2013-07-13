@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -82,7 +83,7 @@ public class Program implements Serializable {
 		this.scheduleSet = scheduleSet;
 	}
 	
-	@ManyToMany
+	@ManyToMany(fetch=FetchType.EAGER)
 	@JoinTable(
 			name="program_has_category",
 			joinColumns = { @JoinColumn(name="program_rid") },
