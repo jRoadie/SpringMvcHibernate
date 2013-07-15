@@ -5,53 +5,13 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>TV Programs : jRoadie.com</title>
-<style type="text/css">
-body{
-	text-align: center;
-}
-#wrap{
-	width: 600px;
-	margin: 0 auto;
-}
-#main-nav ul{
-	width: 400px;
-	margin: 0 auto;
-}
-#main-nav ul li{
-	float: left;
-	list-style: none;
-	font-size: 18px;
-	margin-left: 30px;
-}
-#main-nav ul li a{
-	color: black;
-	text-decoration: none;
-}
-.success{
-	color: green;
-}
-#content{
-	text-align: left;
-}
-#content table{
-	border: 1px solid #aaa;
-}
-#content td, #content th{
-	padding: 5px;
-	border: 1px solid #aaa;
-}
-#content table#program{
-	border: 0px solid #fff;
-}
-#content table#program td{
-	border: 0px solid #fff;
-}
-</style>
+<link type="text/css" rel="stylesheet" media="screen" href='<c:url value="/resources/style/basic.css" />' />
+<script type="text/javascript" src='<c:url value="/resources/script/basic.js"/>'></script>
 </head>
 <body>
 <div id="wrap">
 <div id="header">
-	<h1>TV Programs App</h1>
+	<h1><img src='<c:url value="/resources/style/img/tv.png"/>' alt="TV Icon" style="position: relative; top: 5px;" /> TV Programs App</h1>
 	<p>SpringMVC and Hibernate Example by jRoadie</p>
 	<%@ include file="navigation.jsp" %>
 </div>
