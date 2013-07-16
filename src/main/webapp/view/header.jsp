@@ -5,13 +5,13 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>TV Programs : jRoadie.com</title>
-<link type="text/css" rel="stylesheet" media="screen" href='<c:url value="/resources/style/basic.css" />' />
-<script type="text/javascript" src='<c:url value="/resources/script/basic.js"/>'></script>
+<link type="text/css" rel="stylesheet" media="screen" href='<c:url value="/view/resources/style/basic.css" />' />
+<script type="text/javascript" src='<c:url value="/view/resources/script/basic.js"/>'></script>
 </head>
 <body>
 <div id="wrap">
 <div id="header">
-	<h1><img src='<c:url value="/resources/style/img/tv.png"/>' alt="TV Icon" style="position: relative; top: 5px;" /> TV Programs App</h1>
+	<h1><img src='<c:url value="/view/resources/style/img/tv.png"/>' alt="TV Icon" style="position: relative; top: 5px;" /> TV Programs App</h1>
 	<p>SpringMVC and Hibernate Example by jRoadie</p>
 	<%@ include file="navigation.jsp" %>
 </div>
