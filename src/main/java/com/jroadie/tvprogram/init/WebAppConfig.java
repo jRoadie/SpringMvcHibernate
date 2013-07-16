@@ -25,7 +25,7 @@ import org.springframework.web.servlet.view.UrlBasedViewResolver;
 @EnableWebMvc
 @EnableTransactionManagement
 @PropertySource("classpath:application.conf")
-public class WebAppConfig extends WebMvcConfigurerAdapter{
+public class WebAppConfig extends WebMvcConfigurerAdapter {
 
 	private static final String DB_DRIVER = "db.driver";
     private static final String DB_PASSWORD = "db.password";
